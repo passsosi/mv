@@ -143,22 +143,31 @@ class ItemController extends Controller
             }
         }
 
-        $data = Item::findOrFail($id_item);
-        $images = Image::where('id_item', $id_item)->get();
-        $docs = Documents::where('id_item', $id_item)->get();
-        $category3 = TCtg::where('have_4category', 0)->get();
-        $category4 = FCtg::all();
-
-        $category = $category3->merge($category4);
-        $itemCategory = TCtg::where('id', $data->id_category)->get();
-
-        return view('update', [
-            'data' => $data,
-            'images' => $images,
-            'documents' => $docs,
-            'category' => $category,
-            'itemCategory' => $itemCategory
-        ]);   
+        $data = Item::findOrFail($item->id);
+        //dd($data->id_category);
+        $CtgData = Tctg::where('id', $data->id_category)->get();
+        if($CtgData->isEmpty()){
+            $category = Fctg::where('id', $data->id_4category)->get();
+            $data = Item::where('id_4category', $data->id_4category)->get();
+            $images = Image::all();
+            
+            return view('list', [
+                    'data' => $data,
+                    'images' => $images,
+                    'category' => $category
+                ]);
+        }
+        else{
+            $category = Tctg::where('id', $data->id_category)->get();
+            $data = Item::where('id_Category', $data->id_category)->get();
+            $images = Image::all();
+            
+            return view('list', [
+                    'data' => $data,
+                    'images' => $images,
+                    'category' => $category
+                ]);
+        }  
     }
 
     public function itemAddView($id)
@@ -197,8 +206,10 @@ class ItemController extends Controller
         $item->name = $req->input('name');
         $item->description = $req->input('desc');
         $item->save();
-            $item = Item::latest()->first();
+        $item = Item::latest()->first();
         
+        
+
         if($req->file('image') != null)
         foreach ($req->file('image') as $img){
             $image = new Image();
@@ -223,21 +234,30 @@ class ItemController extends Controller
         }
 
         $data = Item::findOrFail($item->id);
-        $images = Image::where('id_item', $item->id)->get();
-        $docs = Documents::where('id_item', $item->id)->get();
-        $category3 = TCtg::where('have_4category', 0)->get();
-        $category4 = FCtg::all();
-
-        $category = $category3->merge($category4);
-        $itemCategory = TCtg::where('id', $data->id_category)->get();
-
-        return view('update', [
-            'data' => $data,
-            'images' => $images,
-            'documents' => $docs,
-            'category' => $category,
-            'itemCategory' => $itemCategory
-        ]);   
+        //dd($data->id_category);
+        $CtgData = Tctg::where('id', $data->id_category)->get();
+        if($CtgData->isEmpty()){
+            $category = Fctg::where('id', $data->id_4category)->get();
+            $data = Item::where('id_4category', $data->id_4category)->get();
+            $images = Image::all();
+            
+            return view('list', [
+                    'data' => $data,
+                    'images' => $images,
+                    'category' => $category
+                ]);
+        }
+        else{
+            $category = Tctg::where('id', $data->id_category)->get();
+            $data = Item::where('id_Category', $data->id_category)->get();
+            $images = Image::all();
+            
+            return view('list', [
+                    'data' => $data,
+                    'images' => $images,
+                    'category' => $category
+                ]);
+        }
     }
 
     public function imgDelete($id)
@@ -317,25 +337,7 @@ class ItemController extends Controller
                 }
                 $item->delete();
 
-                if($id_Category){
-                    $data = Item::where('id_Category', $id_Category)->get();
-                    $images = Image::all();
-                    return view('list', [
-                            'data' => $data,
-                            'images' => $images
-                        ]);
-                }
-                else{
-                    $data = Item::where('id_4category', $id_Category)->get();
-                    $images = Image::all();
-                    return view('list', [
-                            'data' => $data,
-                            'images' => $images
-                        ]);
-                }
-
-                return view('list', compact('data'));
-
+                return redirect()->back();
             } else {
                 Session::flash('status', 'Объект не найдены');
                 return redirect()->back();

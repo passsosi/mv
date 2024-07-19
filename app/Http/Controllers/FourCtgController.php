@@ -55,13 +55,15 @@ class FourCtgController extends Controller
         return redirect('/');
     } 
 
-    public function categoryAddView()
+    public function categoryAddView($id)
     {
         if (Auth::check()) {
             $category = TCtg::where('have_4category', 1)->get();
+            $itemCategory = TCtg::where('id', $id)->get();
 
             return view('FCtgAdd', [
-            'category' => $category
+            'category' => $category,
+            'itemCategory' => $itemCategory
         ]);   
         }
         return redirect('/');
@@ -80,15 +82,13 @@ class FourCtgController extends Controller
         $Fctg->save();
         
         $data = Fctg::latest()->first();
-        $category = TCtg::where('have_4category', 1)->get();
-        $SecondCategory = TCtg::where('id', $data->id_SecondCategory)->get();
-
-        return view('FCtgUpdate', [
-            'data' => $data,
-            'category' => $category,
-            'SecondCategory' => $SecondCategory
-        ]);
-        return redirect('/');
+        $category = Tctg::where('id', $data->id_third_category)->get();
+        $data = FCtg::where('id_third_category', $data->id_third_category)->get();
+            
+            return view('FourthCtg', [
+                'data' => $data,
+                'category' => $category
+            ]);
     }
 
     public function categoryDelete($id)

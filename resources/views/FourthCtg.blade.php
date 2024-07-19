@@ -46,11 +46,11 @@
 
         <div class="col">
           <div class="card {{Auth::check() ? '' : 'd-none' }}">
-            <button type="button" class="btn btn-md btn-block btn-outline-secondary"  onclick="add()">Добавить</button>
+            <button type="button" class="btn btn-md btn-block btn-outline-secondary"  onclick="add({{$category[0]->id}})">Добавить</button>
             <script>
-              function add() 
+              function add(categoryId) 
               {
-                window.location.href = "{{ route('category4AddView') }}" ;
+                window.location.href = "{{ route('category4AddView', ':categoryId') }}".replace(':categoryId', categoryId);
               }
             </script>
         </div>

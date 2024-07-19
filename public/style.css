@@ -25,6 +25,10 @@
         width: 98% !important;
         height: auto !important;
     }
+
+    .back-btn-header{
+        display: none;
+    }
 }
 
 .item-images img{
@@ -65,4 +69,14 @@
 }
 .docs:hover {
     color: rgb(83, 83, 83);
+}
+
+.back-btn-header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 4vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.1);
+    z-index: 9999;
 }

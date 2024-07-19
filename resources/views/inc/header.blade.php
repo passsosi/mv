@@ -1,7 +1,8 @@
 @section('header')
 
     <header class="navbar navbar-expand-md" style="background-color: rgb(0,90,140);">
-        <a href="#" onclick="history.back();" class="text-white m-3 text-decoration-none"><h2>Назад</h2></a>
+        <a href="#" onclick="history.back();" class="text-white text-decoration-none back-btn-header"><h1 class="m-3">  
+        <i class="fas fa-arrow-left"></i></h1></a>
         <div class="container">
             <div class="row">
                 <div class="col-md-1">

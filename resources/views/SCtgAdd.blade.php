@@ -22,8 +22,9 @@
                 </div>
 
                 <div>
-                    <a class="w-50 dropdown-toggle hidden-arrow btn btn-primary " href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">Категория<input type="text" id="id_category" name="id_category" class="form-control form-control-dropdown mt-3" readonly placeholder="id категории"/></a>
-                    
+                  @foreach ($itemCategory as $elICat)
+                  <a class="w-50 dropdown-toggle hidden-arrow btn btn-primary " href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">Категория<input type="text" id="id_category" name="id_category" class="form-control form-control-dropdown mt-3" readonly placeholder="Категория" value="{{$elICat->id}}" /></a>
+                  @endforeach
                     <ul class="col-lg-4 col-md-4 dropdown-menu dropdown-menu-left " aria-labelledby="navbarDropdownMenuLink">
                         <li>
                         <div class="d-flex justify-content-center input-group mt-2 px-2 form-outline">

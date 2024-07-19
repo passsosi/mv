@@ -19,13 +19,15 @@ class ThrdCtgController extends Controller
         return view('thrdcatg', ['data' => $data, 'category' => $category]);
     }
 
-    public function categoryAddView()
+    public function categoryAddView($id)
     {
         if (Auth::check()) {
             $category = SCtg::all();
+            $itemCategory = SCtg::where('id', $id)->get();
 
             return view('TCtgAdd', [
-            'category' => $category
+            'category' => $category,
+            'itemCategory' => $itemCategory
         ]);   
         }
         return redirect('/');
@@ -48,14 +50,11 @@ class ThrdCtgController extends Controller
         $Tctg->save();
         
         $data = TCtg::latest()->first();
-        $category = SCtg::all();
-        $SecondCategory = SCtg::where('id', $data->id_SecondCategory)->get();
+        $category = Sctg::where('id', $data->id_SecondCategory )->get();
+        $data = TCtg::where('id_SecondCategory', $data->id_SecondCategory )->get();
+        
 
-        return view('TCtgUpdate', [
-            'data' => $data,
-            'category' => $category,
-            'SecondCategory' => $SecondCategory
-        ]);
+        return view('thrdcatg', ['data' => $data, 'category' => $category]);
         return redirect('/');
     }
 
@@ -130,9 +129,7 @@ class ThrdCtgController extends Controller
                 
                 $cat->delete();
 
-                $data = TCtg::where('id_SecondCategory', $id_Category)->get();
-
-                return view('thrdcatg', compact('data'));
+                return redirect()->back();
 
             } else {
                 Session::flash('status', 'Объект не найдены');

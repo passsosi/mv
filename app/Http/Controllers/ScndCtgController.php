@@ -18,13 +18,15 @@ class ScndCtgController extends Controller
         return view('scndcatg', ['data' => $data, 'category' => $category]);
     }
 
-    public function categoryAddView()
+    public function categoryAddView($id)
     {
         if (Auth::check()) {
             $category = Home::all();
+            $itemCategory = Home::where('id', $id)->get();
 
             return view('SCtgAdd', [
-            'category' => $category
+            'category' => $category,
+            'itemCategory' => $itemCategory
         ]);   
         }
         return redirect('/');
@@ -45,14 +47,11 @@ class ScndCtgController extends Controller
         $Sctg->save();
         
         $data = SCtg::latest()->first();
-        $category = Home::all();
-        $MainCategory = Home::where('id', $data->id_MPCategory)->get();
-
-        return view('SCtgUpdate', [
-            'data' => $data,
-            'category' => $category,
-            'MainCategory' => $MainCategory
-        ]);
+        $category = Home::where('id', $data->id_MPCategory)->get();
+        $data = SCtg::where('id_MPCategory', $data->id_MPCategory)->get();
+        
+        
+        return view('scndcatg', ['data' => $data, 'category' => $category]);
         return redirect('/');
     }
 
@@ -118,9 +117,7 @@ class ScndCtgController extends Controller
                 
                 $cat->delete();
 
-                $data = SCtg::where('id_MPCategory', $id_Category)->get();
-
-                return view('scndcatg', compact('data'));
+                return redirect()->back();
 
             } else {
                 Session::flash('status', 'Объект не найдены');

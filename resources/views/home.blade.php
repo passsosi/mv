@@ -11,8 +11,8 @@
   <div class="row" width="100%" style="background-image: url(<?php echo $base64Image; ?>); background-size: cover; background-repeat: no-repeat; height: 500px;">
     <div class="col-lg-8 col-md-8 mx-auto py-4">
       <div>
-          <h2 class="fw-light text-center mt-5 fw-bold text-light">ВИРТУАЛЬНЫЙ МУЗЕЙ</h2>
-          <h2 class="fw-light text-center fw-bold text-light pb-5">ИПРЭК СО РАН</h2> 
+          <h2 class="fw-light text-center mt-5 fw-bold text-light">Виртуальный атлас</h2>
+          <h2 class="fw-light text-center fw-bold text-light pb-5">«Природа Забайкалья»</h2> 
       </div>
 
       <form action="{{ route('HomeIMGUpdate', ['id' => $content->id]) }}" method="post" enctype="multipart/form-data" >
