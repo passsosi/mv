@@ -1,0 +1,68 @@
+@media (max-width: 991px) {
+    .input-group>.form-control, .input-group>.form-floating, .input-group>.form-select {
+        width: 340px;
+    }
+
+    .input-group{
+        display: block;
+    }
+
+    .search-dropdown a{
+        width: 340px;
+        margin-top: 15px;
+    }
+
+    .row{
+        margin-right: 0px;
+    }
+
+    .item-images img{
+        min-width: 60%;
+        max-width: 60%;
+    }
+
+    .img-view img{
+        width: 98% !important;
+        height: auto !important;
+    }
+}
+
+.item-images img{
+    max-width: 30%;
+    max-height: 180px;
+    object-fit: cover;
+}
+
+.img-view img{
+    width: auto;
+    height: 90%;
+}
+
+.bbg {
+    font-size: 24px;
+    color: white;
+    transition: 0.2s ease;
+}
+
+.bbg:hover {
+    color: gray;
+}
+
+.wbg {
+    font-size: 24px;
+    transition: 0.2s ease;
+}
+
+.wbg:hover {
+    color: rgb(41, 126, 172);
+
+}
+
+.docs {
+    font-size: 22px;
+    color: rgb(0, 0, 0);
+    transition: 0.2s ease;
+}
+.docs:hover {
+    color: rgb(83, 83, 83);
+}

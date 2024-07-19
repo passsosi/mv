@@ -1,0 +1,177 @@
+@extends('layout')
+@section('content')
+
+  <div class="navbar">
+    <div class="col-lg-8 col-md-8 mx-auto mt-3">
+        <div class="input-group">
+          <input type="search" class="form-control rounded" placeholder="Поиск" aria-label="Search" aria-describedby="search-addon" />
+        </div>
+    </div>
+  </div>
+  
+  
+  <script>
+    const searchInputDropdown = document.getElementById('form1');
+    const dropdownOptions = document.querySelectorAll('.dropdown-item');  
+  
+    searchInputDropdown.addEventListener('input', () => {
+      const filter = searchInputDropdown.value.toLowerCase();
+      showOptions();
+      const valueExist = !!filter.length;
+  
+      if (valueExist) {
+        dropdownOptions.forEach((el) => {
+          const elText = el.textContent.trim().toLowerCase();
+          const isIncluded = elText.includes(filter);
+          if (!isIncluded) {
+            el.style.display = 'none';
+          }
+        });
+      }
+    });
+  
+    const showOptions = () => {
+      dropdownOptions.forEach((el) => {
+        el.style.display = 'block';
+      });
+    };
+  
+    const dropdownToggle = document.getElementById('navbarDropdownMenuLink');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+  
+    dropdownToggle.addEventListener('click', () => {
+      dropdownMenu.classList.toggle('show');
+    });
+  
+    document.addEventListener('click', (event) => {
+        if (!event.target.closest('.dropdown-menu') && !dropdownToggle.contains(event.target)) {
+            dropdownMenu.classList.remove('show');
+        }
+    });
+  </script>
+
+<div class="album bg-body-tertiary">
+    
+    <div class="container">
+      <h1 class="text-center pt-3 mt-1">{{$category[0]->name}} – {{$category[0]->latName}}</h1>
+      <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 g-3 mt-2">
+        @php
+          $i = 0;
+        @endphp
+        @foreach ($data as $el)
+              <div class="col">
+                <div class="card shadow-sm">
+                  @php
+                    $firstImageFound = false;
+                  @endphp
+
+                      @foreach($images as $img)
+                        @if(!$firstImageFound && $img->id_item === $el->id)
+                          @php
+                            $firstImageFound = true;
+                          @endphp
+                          <img src="data:image/jpeg;base64,{{ base64_encode($img->image) }}" class="img-fluid w-100 card-img-top" style="max-width: 100%; max-height: 300px; object-fit: cover;" alt="Image">
+                        @endif
+                      @endforeach
+                      
+                      <div class="card-body">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text-truncate">{{$el->name}}<br/>{{$el->latName}}</h5>
+                          </div>
+                          <button type="button" class="btn btn-md btn-block btn-outline-secondary mt-2" 
+                          onclick="redirect({{$el->id}})">Подробнее</button>
+                          
+                          <button type="button" class="btn btn-md btn-block btn-outline-secondary mt-2 {{Auth::check() ? '' : 'd-none' }}" 
+                          onclick="update({{$el->id}})">Редактировать</button>
+                          <button type="button" class="btn btn-md btn-block btn-outline-secondary mt-2 {{Auth::check() ? '' : 'd-none' }}" 
+                          onclick="itemDel({{$el->id}})">Удалить</button>
+                      </div>
+                  </div>
+              </div>
+
+              <script>
+                function redirect(categoryId) {
+                    window.location.href = "{{ route('item', ':categoryId') }}".replace(':categoryId', categoryId);
+                }
+                function update(categoryId) {
+                    window.location.href = "{{ route('update', ':categoryId') }}".replace(':categoryId', categoryId);
+                }
+                function itemDel(categoryId) {
+                    window.location.href = "{{ route('delete', ':categoryId') }}".replace(':categoryId', categoryId);
+                }
+              </script>
+              @php
+                $i = $el->id_item;
+              @endphp
+        @endforeach
+        
+        <div class="col">
+          <div class="card {{Auth::check() ? '' : 'd-none' }}">
+            <button type="button" class="btn btn-md btn-block btn-outline-secondary"  onclick="add({{$category[0]->id}})">Добавить</button>
+            
+            <script>
+              function add(categoryId) {
+                  window.location.href = "{{ route('add', ':categoryId') }}".replace(':categoryId', categoryId);
+              }
+            </script>
+        </div>
+
+    </div>
+</div>
+
+<script>
+  const searchInput = document.querySelector('input[aria-label="Search"]');
+  const cards = document.querySelectorAll('.card');
+
+  searchInput.addEventListener('input', () => {
+    const filter = searchInput.value.toLowerCase();
+
+    cards.forEach((card) => {
+      const name = card.querySelector('h5.text-truncate').textContent.toLowerCase();
+      const latName = card.querySelector('h5.text-truncate:last-child').textContent.toLowerCase();
+
+      if (name.includes(filter) || latName.includes(filter)) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+</script>
+
+@if(Session::has('status'))
+
+    <div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="statusModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="statusModalLabel">Ошибка</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger">
+                        {{ Session::get('status') }}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  @endif
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function() {
+        $('#statusModal').modal('show');
+    });
+  </script>
+  <script>
+    $('#closeModal').click(function () {
+        $('#statusModal').modal('hide');
+    });
+  </script>
+  
+@endsection
