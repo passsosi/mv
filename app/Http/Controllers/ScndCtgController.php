@@ -12,10 +12,20 @@ class ScndCtgController extends Controller
 {
     public function listOutput($id_MPC)
     {
-        $data = SCtg::where('id_MPCategory', $id_MPC)->get();
+        $data = SCtg::where('id_MPCategory', $id_MPC)->orderBy('view_order', 'asc')->get();
         $category = Home::where('id', $id_MPC)->get();
         
         return view('scndcatg', ['data' => $data, 'category' => $category]);
+    }
+
+    public function Order(Request $req){
+        if (Auth::check()) {
+        $data = Sctg::findOrFail($req->id);
+        $data->view_order = $req->order;
+        $data->save();
+        return redirect()->back();
+        }
+        return redirect('/');
     }
 
     public function categoryAddView($id)

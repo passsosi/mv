@@ -16,6 +16,14 @@
               <div class="d-flex justify-content-between align-items-center mt-3">
                   <button type="button" class="btn btn-md btn-block btn-outline-secondary" 
                   onclick="redirect({{$el->id}})">Подробнее</button>
+                  <div class="order {{Auth::check() ? '' : 'd-none' }}">
+                    <form action="{{ route('3Order') }}" method="post">
+                      @csrf
+                      <input type="hidden" name="id" value="{{$el->id}}">
+                      <input type="number" class="btn btn-sm btn-outline-secondary" placeholder="Номер" name="order" value="{{$el->view_order}}" min="0" max="9999">
+                      <button type="submit" class="btn btn-sm btn-block btn-outline-secondary">✓</button>
+                    </form>
+                  </div>
                   <div>
                     <button type="button" class="btn btn-md btn-block btn-outline-secondary {{Auth::check() ? '' : 'd-none' }}" 
                     onclick="update({{$el->id}})">Редактировать</button>

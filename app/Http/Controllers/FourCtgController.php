@@ -26,6 +26,16 @@ class FourCtgController extends Controller
         return redirect('/');
     }
 
+    public function Order(Request $req){
+        if (Auth::check()) {
+        $data = Fctg::findOrFail($req->id);
+        $data->view_order = $req->order;
+        $data->save();
+        return redirect()->back();
+        }
+        return redirect('/');
+    }
+
     public function categoryUpdate(Request $req, $id)
     {
         if (Auth::check()) {

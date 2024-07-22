@@ -13,10 +13,20 @@ class ThrdCtgController extends Controller
 {
     public function listOutput($id_SC)
     {
-        $data = TCtg::where('id_SecondCategory', $id_SC)->get();
+        $data = TCtg::where('id_SecondCategory', $id_SC)->orderBy('view_order', 'asc')->get();
         $category = Sctg::where('id', $id_SC)->get();
 
         return view('thrdcatg', ['data' => $data, 'category' => $category]);
+    }
+
+    public function Order(Request $req){
+        if (Auth::check()) {
+        $data = Tctg::findOrFail($req->id);
+        $data->view_order = $req->order;
+        $data->save();
+        return redirect()->back();
+        }
+        return redirect('/');
     }
 
     public function categoryAddView($id)

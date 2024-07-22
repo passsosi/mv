@@ -36,6 +36,8 @@ Route::post('/{id}/HomeIMGUpdate', [HomeController::class, 'contentIMGUpdate'])-
 
 Route::post('/{id}/HomeDescUpdate', [HomeController::class, 'contentDescUpdate'])->name('HomeDescUpdate');
 
+Route::post('/', [HomeController::class, 'homeOrder'])->name('HomeOrder');
+
 
 Route::get('/2с/{id_MPC}', [ScndCtgController::class, 'ListOutput'])->name('2c');
 
@@ -48,6 +50,8 @@ Route::get('/2c/{id}/TCtgUpdate', [ScndCtgController::class, 'categoryUpdateView
 Route::post('/2c/{id}/TCtgUpdate', [ScndCtgController::class, 'categoryUpdate'])->name('ScategoryUpdate');
 
 Route::get('/2c/{id}/itemDeleting', [ScndCtgController::class, 'categoryDelete'])->name('ScategoryDelete');
+
+Route::post('/2c', [ScndCtgController::class, 'Order'])->name('2Order');
 
 
 Route::get('/3с/{id_SC}', [ThrdCtgController::class, 'ListOutput'])->name('3c');
@@ -62,6 +66,8 @@ Route::post('/3c/{id}/TCtgUpdate', [ThrdCtgController::class, 'categoryUpdate'])
 
 Route::get('/3c/{id}/itemDeleting', [ThrdCtgController::class, 'categoryDelete'])->name('categoryDelete');
 
+Route::post('/3c', [ThrdCtgController::class, 'Order'])->name('3Order');
+
 
 Route::get('/catedory4-add/{id}', [FourCtgController::class, 'categoryAddView'])->name('category4AddView');
 
@@ -74,6 +80,8 @@ Route::post('/4c/{id}/FCtgUpdate', [FourCtgController::class, 'categoryUpdate'])
 Route::get('/4c/{id}/itemDeleting', [FourCtgController::class, 'categoryDelete'])->name('category4Delete');
 
 Route::get('/list4/{id_Category}', [ItemController::class, 'List4Output'])->name('list4');
+
+Route::post('/4c', [FourCtgController::class, 'Order'])->name('4Order');
 
 
 Route::get('/list/{id_Category}', [ItemController::class, 'ListOutput'])->name('list');

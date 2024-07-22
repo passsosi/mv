@@ -12,7 +12,18 @@ class HomeController extends Controller
 {
     public function listOutput()
     {
-        return view('home', ['data' => Home::all(), 'content'=> HomeContent::First()]);
+        return view('home', ['data' => Home::orderBy('view_order', 'asc')->get(), 'content'=> HomeContent::First()]);
+    }
+
+    public function homeOrder(Request $req)
+    {
+        if (Auth::check()) {
+        $Home = Home::findOrFail($req->id);
+        $Home->view_order = $req->order;
+        $Home->save();
+        return view('home', ['data' => Home::orderBy('view_order', 'asc')->get(), 'content'=> HomeContent::First()]);
+        }
+        return redirect('/');
     }
 
     public function categoryAddView()

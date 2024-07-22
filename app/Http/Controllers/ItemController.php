@@ -18,7 +18,7 @@ class ItemController extends Controller
     {
         $CtgData = Tctg::where('id', $id_Category)->get();
         if($CtgData[0]->have_4category == 0){
-            $data = Item::where('id_Category', $id_Category)->get();
+            $data = Item::where('id_Category', $id_Category)->orderBy('name', 'asc')->get();
             $images = Image::all();
             $category = Tctg::where('id', $id_Category)->get();
             return view('list', [
@@ -28,7 +28,7 @@ class ItemController extends Controller
                 ]);
         }
         else{
-            $data = FCtg::where('id_third_category', $id_Category)->get();
+            $data = FCtg::where('id_third_category', $id_Category)->orderBy('view_order', 'asc')->get();
             $category = Tctg::where('id', $id_Category)->get();
             return view('FourthCtg', [
                 'data' => $data,
@@ -39,7 +39,7 @@ class ItemController extends Controller
 
     public function list4Output($id_Category)
     {
-        $data = Item::where('id_4category', $id_Category)->get();
+        $data = Item::where('id_4category', $id_Category)->orderBy('name', 'asc')->get();
         $images = Image::all();
         $category = Fctg::where('id', $id_Category)->get();
         return view('list', [
