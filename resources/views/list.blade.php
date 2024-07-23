@@ -75,16 +75,17 @@
                       @endforeach
                       
                       <div class="card-body">
+                        <h5 class="text-truncate">{{$el->name}}<br/>{{$el->latName}}</h5>
                           <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="text-truncate">{{$el->name}}<br/>{{$el->latName}}</h5>
+                            <button type="button" class="btn btn-md btn-block btn-outline-secondary mt-2" 
+                            onclick="redirect({{$el->id}})">Подробнее</button>
+                            <div>
+                              <button type="button" class="btn btn-md btn-block btn-outline-secondary mt-2 {{Auth::check() ? '' : 'd-none' }}" 
+                              onclick="update({{$el->id}})"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                              <button type="button" class="btn btn-md btn-block btn-outline-secondary mt-2 {{Auth::check() ? '' : 'd-none' }}" 
+                              onclick="itemDel({{$el->id}})"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            </div> 
                           </div>
-                          <button type="button" class="btn btn-md btn-block btn-outline-secondary mt-2" 
-                          onclick="redirect({{$el->id}})">Подробнее</button>
-                          
-                          <button type="button" class="btn btn-md btn-block btn-outline-secondary mt-2 {{Auth::check() ? '' : 'd-none' }}" 
-                          onclick="update({{$el->id}})">Редактировать</button>
-                          <button type="button" class="btn btn-md btn-block btn-outline-secondary mt-2 {{Auth::check() ? '' : 'd-none' }}" 
-                          onclick="itemDel({{$el->id}})">Удалить</button>
                       </div>
                   </div>
               </div>

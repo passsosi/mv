@@ -49,6 +49,7 @@
               <div class="d-flex justify-content-between align-items-center mt-3">
                   <button type="button" class="btn btn-md btn-block btn-outline-secondary" 
                   onclick="redirect({{$el->id}})">Подробнее</button>
+                  
                   <div class="order {{Auth::check() ? '' : 'd-none' }}">
                     <form action="{{ route('HomeOrder') }}" method="post">
                       @csrf
@@ -58,10 +59,10 @@
                     </form>
                   </div>
                   <div>
-                    <button type="button" class="btn btn-md btn-block btn-outline-secondary {{Auth::check() ? '' : 'd-none' }}" 
-                    onclick="update({{$el->id}})">Редактировать</button>
-                    <button type="button" class="btn btn-md btn-block btn-outline-secondary {{Auth::check() ? '' : 'd-none' }}" 
-                    onclick="categoryDel({{$el->id}})">Удалить</button>
+                    <button type="button" class="editBtn btn btn-md btn-block btn-outline-secondary {{Auth::check() ? '' : 'd-none' }}" 
+                    onclick="update({{$el->id}})"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                    <button type="button" class="delBtn btn btn-md btn-block btn-outline-secondary {{Auth::check() ? '' : 'd-none' }}" 
+                    onclick="categoryDel({{$el->id}})"><i class="fa fa-trash" aria-hidden="true"></i></button>
                   </div>
               </div>
             </div>

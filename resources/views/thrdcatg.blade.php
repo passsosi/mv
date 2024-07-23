@@ -26,9 +26,9 @@
                   </div>
                   <div>
                     <button type="button" class="btn btn-md btn-block btn-outline-secondary {{Auth::check() ? '' : 'd-none' }}" 
-                    onclick="update({{$el->id}})">Редактировать</button>
+                    onclick="update({{$el->id}})"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                     <button type="button" class="btn btn-md btn-block btn-outline-secondary {{Auth::check() ? '' : 'd-none' }}" 
-                    onclick="categoryDel({{$el->id}})">Удалить</button>
+                    onclick="categoryDel({{$el->id}})"><i class="fa fa-trash" aria-hidden="true"></i></button>
                   </div>
               </div>
             </div>

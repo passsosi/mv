@@ -1,3 +1,15 @@
+@media(max-width: 1400px){
+    .order{
+        margin-right: -170px !important;
+    }
+}
+
+@media(max-width: 1200px){
+    .order{
+        margin-right: -90px !important;
+    }
+}
+
 @media (max-width: 991px) {
     .input-group>.form-control, .input-group>.form-floating, .input-group>.form-select {
         width: 340px;
@@ -32,11 +44,16 @@
 
     .order{
         margin-left: 10px;
+        margin-right: 0px !important;
     }
 
     .order input{
         width: 50px;
     }
+}
+
+.order{
+    margin-right: -270px;
 }
 
 .item-images img{
