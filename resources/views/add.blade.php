@@ -14,12 +14,12 @@
                 <div class="form-outline form-white mb-4">
                     <h4>Латинское название</h4><input type="text" id="latName" name="latName" class="form-control form-control-lg" />
                 </div>
+                
                 <div class="form-outline form-white mb-4">
                     <h4>Описание</h4><textarea type="text" id="desc" name="desc" rows="5" class="form-control form-control-lg" style="height:350px;"></textarea>
                 </div>
-
+                
                 <div>
-                  
                   @foreach ($itemCategory as $elICat)
                     <a class="w-50 dropdown-toggle hidden-arrow btn btn-primary " href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">Категория<input type="text" id="id_category" name="id_category" class="form-control form-control-dropdown mt-3" readonly placeholder="Категория" value="{{$elICat->name}}" /></a>
                   @endforeach
@@ -37,8 +37,6 @@
                         @endforeach
                     </ul>
                 </div>
-
-                
 
                 <h4 class="mt-3">Изображения</h4><div class="mt-3 text-center">
                   

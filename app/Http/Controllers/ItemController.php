@@ -61,7 +61,6 @@ class ItemController extends Controller
         }else{
             $cat = TCtg::where('id', $cat_id)->get();
         }
-        
 
         return view('item', [
             'data' => $data,
@@ -79,7 +78,6 @@ class ItemController extends Controller
             $docs = Documents::where('id_item', $id_item)->get();
             $category3 = TCtg::where('have_4category', 0)->get();
             $category4 = FCtg::all();
-
             $category = $category3->concat($category4);
 
             $itemCategory = TCtg::where('id', $data->id_category)->get();
@@ -100,9 +98,7 @@ class ItemController extends Controller
     public function itemUpload(Request $req, $id_item)
     {
         $item = Item::findOrFail($id_item);
-
         $category_id = Tctg::where('name', $req->id_category)->pluck('id');
-        
         if($category_id->isEmpty()){
             $category_id = Fctg::where('name', $req->id_category)->pluck('id');
             $item->id_4category = $category_id[0];
@@ -144,7 +140,6 @@ class ItemController extends Controller
         }
 
         $data = Item::findOrFail($item->id);
-        //dd($data->id_category);
         $CtgData = Tctg::where('id', $data->id_category)->get();
         if($CtgData->isEmpty()){
             $category = Fctg::where('id', $data->id_4category)->get();
@@ -176,7 +171,6 @@ class ItemController extends Controller
             $category3 = TCtg::where('have_4category', 0)->get();
             $category4 = FCtg::all();
             $category = $category3->concat($category4);
-            
             $itemCategory = TCtg::where('id', $id)->get();
             if($itemCategory->isEmpty()){
                 $itemCategory = FCtg::where('id', $id)->get();
@@ -201,15 +195,12 @@ class ItemController extends Controller
         else{
             $item->id_category = $category_id[0];
         }
-        
         $item->latName = $req->input('latName');
         $item->name = $req->input('name');
         $item->description = $req->input('desc');
         $item->save();
         $item = Item::latest()->first();
         
-        
-
         if($req->file('image') != null)
         foreach ($req->file('image') as $img){
             $image = new Image();
@@ -234,7 +225,6 @@ class ItemController extends Controller
         }
 
         $data = Item::findOrFail($item->id);
-        //dd($data->id_category);
         $CtgData = Tctg::where('id', $data->id_category)->get();
         if($CtgData->isEmpty()){
             $category = Fctg::where('id', $data->id_4category)->get();

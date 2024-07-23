@@ -121,7 +121,7 @@
 
 <script>
   const searchInput = document.querySelector('input[aria-label="Search"]');
-  const cards = document.querySelectorAll('.card');
+  const cards = document.querySelectorAll('.col');
 
   searchInput.addEventListener('input', () => {
     const filter = searchInput.value.toLowerCase();
@@ -131,9 +131,9 @@
       const latName = card.querySelector('h5.text-truncate:last-child').textContent.toLowerCase();
 
       if (name.includes(filter) || latName.includes(filter)) {
-        card.style.display = 'block';
+        card.hidden = false;
       } else {
-        card.style.display = 'none';
+        card.hidden = true;
       }
     });
   });

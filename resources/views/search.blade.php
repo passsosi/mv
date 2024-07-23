@@ -64,12 +64,6 @@
         $('#navbarDropdownMenuLink').click(function() {
             $('.dropdown-menu').toggleClass('show');
         });
-
-        // $('.dropdown-item').click(function() {
-        //     var categoryName = $(this).data('category-name1');
-        //     var categoryLatName = $(this).data('category-lat-name1');
-        //     // Действия при выборе категории
-        // });
     </script>
 
     <div id="items-list"></div>
@@ -117,9 +111,12 @@
 
     <script>
         var itemList = $('#items-list');
-        $(document).ready(function() {
-            $('#input-label').on('input', function() {
-                var searchQuery = $(this).val();
+        var lastKeyPress = 0;
+        $('#input-label').on('input', function() {
+            var searchQuery = $(this).val();
+            var currentTime = new Date().getTime();
+            if(currentTime - lastKeyPress > 450) {
+                lastKeyPress = currentTime;
                 $.ajax({
                     url: '/search-items',
                     type: 'POST',
@@ -137,7 +134,7 @@
                         });
                     }
                 });
-            });
+            }
         });
     </script>
 @endsection

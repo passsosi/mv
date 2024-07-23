@@ -29,6 +29,14 @@
     .back-btn-header{
         display: none;
     }
+
+    .order{
+        margin-left: 10px;
+    }
+
+    .order input{
+        width: 50px;
+    }
 }
 
 .item-images img{
