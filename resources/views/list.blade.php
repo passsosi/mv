@@ -8,47 +8,6 @@
         </div>
     </div>
   </div>
-  
-  
-  <script>
-    const searchInputDropdown = document.getElementById('form1');
-    const dropdownOptions = document.querySelectorAll('.dropdown-item');  
-  
-    searchInputDropdown.addEventListener('input', () => {
-      const filter = searchInputDropdown.value.toLowerCase();
-      showOptions();
-      const valueExist = !!filter.length;
-  
-      if (valueExist) {
-        dropdownOptions.forEach((el) => {
-          const elText = el.textContent.trim().toLowerCase();
-          const isIncluded = elText.includes(filter);
-          if (!isIncluded) {
-            el.style.display = 'none';
-          }
-        });
-      }
-    });
-  
-    const showOptions = () => {
-      dropdownOptions.forEach((el) => {
-        el.style.display = 'block';
-      });
-    };
-  
-    const dropdownToggle = document.getElementById('navbarDropdownMenuLink');
-    const dropdownMenu = document.querySelector('.dropdown-menu');
-  
-    dropdownToggle.addEventListener('click', () => {
-      dropdownMenu.classList.toggle('show');
-    });
-  
-    document.addEventListener('click', (event) => {
-        if (!event.target.closest('.dropdown-menu') && !dropdownToggle.contains(event.target)) {
-            dropdownMenu.classList.remove('show');
-        }
-    });
-  </script>
 
 <div class="album bg-body-tertiary">
     
@@ -106,7 +65,7 @@
               @endphp
         @endforeach
         
-        <div class="col">
+        <div class="">
           <div class="card {{Auth::check() ? '' : 'd-none' }}">
             <button type="button" class="btn btn-md btn-block btn-outline-secondary"  onclick="add({{$category[0]->id}})">Добавить</button>
             
@@ -121,20 +80,22 @@
 </div>
 
 <script>
-  const searchInput = document.querySelector('input[aria-label="Search"]');
-  const cards = document.querySelectorAll('.col');
+  var searchInput = document.querySelector('input[aria-label="Search"]');
+  var cards = document.querySelectorAll('.col');
 
   searchInput.addEventListener('input', () => {
-    const filter = searchInput.value.toLowerCase();
+    var filter = searchInput.value.toLowerCase();
 
     cards.forEach((card) => {
-      const name = card.querySelector('h5.text-truncate').textContent.toLowerCase();
-      const latName = card.querySelector('h5.text-truncate:last-child').textContent.toLowerCase();
+      var name = card.querySelector('h5.text-truncate').textContent.toLowerCase();
+      var latName = card.querySelector('h5.text-truncate:last-of-type').textContent.toLowerCase();
 
       if (name.includes(filter) || latName.includes(filter)) {
         card.hidden = false;
+        console.log(name);
       } else {
         card.hidden = true;
+        console.log(latName);
       }
     });
   });

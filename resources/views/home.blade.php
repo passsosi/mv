@@ -31,7 +31,7 @@
     <div class="container py-5">
       <form action="{{ route('HomeDescUpdate', ['id' => $content->id]) }}" method="post" enctype="multipart/form-data" >
         @csrf
-        <textarea type="text" id="desc" name="desc" class="mb-3 form-control form-control-lg {{Auth::check() ? '' : 'd-none' }}">{{$content->Description}}</textarea>
+        <textarea type="text" id="desc" name="desc" class="mb-3 form-control form-control-lg {{Auth::check() ? '' : 'd-none' }}" rows="1">{{$content->Description}}</textarea>
         <button type="submit" class="mb-3 btn btn-md btn-block btn-outline-secondary {{Auth::check() ? '' : 'd-none' }}">Обновить текст</button>
       </form>
 
