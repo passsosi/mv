@@ -38,6 +38,8 @@
       <p class="lead fw-bold text-center px-3"> 
         {{$content->Description}}
       </p>
+      <form action="{{ route('HomeOrder') }}" method="post">
+        @csrf
       <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 g-3 mt-5">
         @foreach ($data as $el)
 
@@ -51,12 +53,8 @@
                   onclick="redirect({{$el->id}})">Подробнее</button>
                   
                   <div class="order {{Auth::check() ? '' : 'd-none' }}">
-                    <form action="{{ route('HomeOrder') }}" method="post">
-                      @csrf
-                      <input type="hidden" name="id" value="{{$el->id}}">
-                      <input type="number" class="btn btn-sm btn-outline-secondary" placeholder="Порядковый номер" name="order" value="{{$el->view_order}}" min="0" max="9999">
-                      <button type="submit" class="btn btn-sm btn-block btn-outline-secondary">✓</button>
-                    </form>
+                      <input type="hidden" name="id[{{$el->id}}]" value="{{$el->id}}">
+                      <input type="number" class="btn btn-sm btn-outline-secondary" placeholder="Порядковый номер" name="order[{{$el->id}}]" value="{{$el->view_order}}" min="0" max="9999">
                   </div>
                   <div>
                     <button type="button" class="editBtn btn btn-md btn-block btn-outline-secondary {{Auth::check() ? '' : 'd-none' }}" 
@@ -97,6 +95,8 @@
             </script>
         </div>
     </div>
+    <button type="submit" class="btn btn-sm btn-block btn-outline-secondary {{Auth::check() ? '' : 'd-none' }}">Изменить порядковые номера</button>
+  </form>
   </div>
 </div>
 

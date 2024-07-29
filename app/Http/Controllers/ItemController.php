@@ -37,6 +37,58 @@ class ItemController extends Controller
         }
     }
 
+    public function latSort($id_Category)
+    {
+        $category_id = Tctg::where('id', $id_Category)->pluck('id');
+        if($category_id->isEmpty()){
+            $data = Item::where('id_4Category', $id_Category)->orderBy('latName', 'asc')->get();
+            $images = Image::all();
+            $category = Fctg::where('id', $id_Category)->get();
+           
+            return view('list', [
+                    'data' => $data,
+                    'images' => $images,
+                    'category' => $category
+                ]);
+        }
+        else{
+            $data = Item::where('id_Category', $id_Category)->orderBy('latName', 'asc')->get();
+            $images = Image::all();
+            $category = Tctg::where('id', $id_Category)->get();
+            return view('list', [
+                    'data' => $data,
+                    'images' => $images,
+                    'category' => $category
+                ]);
+        }
+    }
+
+    public function rusSort($id_Category)
+    {
+        $category_id = Tctg::where('id', $id_Category)->pluck('id');
+        if($category_id->isEmpty()){
+            $data = Item::where('id_4Category', $id_Category)->orderBy('name', 'asc')->get();
+            $images = Image::all();
+            $category = Fctg::where('id', $id_Category)->get();
+           
+            return view('list', [
+                    'data' => $data,
+                    'images' => $images,
+                    'category' => $category
+                ]);
+        }
+        else{
+            $data = Item::where('id_Category', $id_Category)->orderBy('name', 'asc')->get();
+            $images = Image::all();
+            $category = Tctg::where('id', $id_Category)->get();
+            return view('list', [
+                    'data' => $data,
+                    'images' => $images,
+                    'category' => $category
+                ]);
+        }
+    }
+
     public function list4Output($id_Category)
     {
         $data = Item::where('id_4category', $id_Category)->orderBy('name', 'asc')->get();

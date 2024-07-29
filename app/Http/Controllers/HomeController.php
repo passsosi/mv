@@ -18,9 +18,11 @@ class HomeController extends Controller
     public function homeOrder(Request $req)
     {
         if (Auth::check()) {
-        $Home = Home::findOrFail($req->id);
-        $Home->view_order = $req->order;
-        $Home->save();
+            foreach($req->id as $el){
+                $Home = Home::findOrFail($el);
+                $Home->view_order = $req->order[$el];
+                $Home->save();
+            }
         return view('home', ['data' => Home::orderBy('view_order', 'asc')->get(), 'content'=> HomeContent::First()]);
         }
         return redirect('/');

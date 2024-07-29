@@ -21,9 +21,11 @@ class ThrdCtgController extends Controller
 
     public function Order(Request $req){
         if (Auth::check()) {
-        $data = Tctg::findOrFail($req->id);
-        $data->view_order = $req->order;
-        $data->save();
+            foreach($req->id as $el){
+                $data = Tctg::findOrFail($el);
+                $data->view_order = $req->order[$el];
+                $data->save();
+            }
         return redirect()->back();
         }
         return redirect('/');

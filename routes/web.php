@@ -106,8 +106,12 @@ Route::get('/add/{id}', [ItemController::class, 'itemAddView'])->name('add');
 
 Route::post('/add', [ItemController::class, 'itemAdd'])->name('itemAdd');
 
+Route::get('/post', [ListController::class, 'ListOutput']);
 
-Route::get('/post', [\App\Http\Controllers\ListController::class, 'ListOutput']);
+
+Route::get('/list-rus/{id_Category}', [ItemController::class, 'rusSort'])->name('rus-sort');
+
+Route::get('/list-lat/{id_Category}', [ItemController::class, 'latSort'])->name('lat-sort');
 
 
 Route::get('/get-pdf/{id}', [\App\Http\Controllers\FileController::class, 'fileConvert'])->name('get-pdf');

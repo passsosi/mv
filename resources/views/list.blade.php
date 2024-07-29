@@ -6,6 +6,22 @@
         <div class="input-group">
           <input type="search" class="form-control rounded" placeholder="Поиск" aria-label="Search" aria-describedby="search-addon" />
         </div>
+        <p class="mt-2">Сортировка:
+          <a href="#" id="rus-link" style="text-decoration: none">По русскому алфавиту</a>
+          <script>
+            document.getElementById('rus-link').addEventListener('click', function(event) {
+            event.preventDefault(); // Отменяет действие по умолчанию (переадресацию)
+            window.location.href = "{{ route('rus-sort', ['id_Category' => $category[0]->id]) }}";
+          });
+          </script>
+          <a href="#" id="latin-link" style="text-decoration: none">По латинскому алфавиту</a>
+          <script>
+            document.getElementById('latin-link').addEventListener('click', function(event) {
+            event.preventDefault(); // Отменяет действие по умолчанию (переадресацию)
+            window.location.href = "{{ route('lat-sort', ['id_Category' => $category[0]->id]) }}";
+          });
+          </script>
+        </p>
     </div>
   </div>
 

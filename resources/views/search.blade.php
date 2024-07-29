@@ -11,7 +11,6 @@
                             id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
                             Категория
                         </a>
-
                         <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownMenuLink">
                             <li>
                                 <div class="input-group mt-2">
