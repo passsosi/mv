@@ -45,7 +45,7 @@
                           @php
                             $firstImageFound = true;
                           @endphp
-                          <img src="data:image/jpeg;base64,{{ base64_encode($img->image) }}" class="img-fluid w-100 card-img-top" style="max-width: 100%; max-height: 300px; object-fit: cover;" alt="Image">
+                          <a href="#" onclick="redirect({{$el->id}})"><img src="data:image/jpeg;base64,{{ base64_encode($img->image) }}" class="img-fluid w-100 card-img-top" style="max-width: 100%; max-height: 300px; object-fit: cover;" alt="Image"></a>
                         @endif
                       @endforeach
                       

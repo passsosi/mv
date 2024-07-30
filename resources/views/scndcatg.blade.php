@@ -13,7 +13,7 @@
 
         <div class="col">
           <div class="card shadow-sm">
-              <img src="data:image/jpeg;base64,{{ base64_encode($el->image) }}" class="img-fluid w-100 card-img-top" style="max-width: 100%; max-height: 375px; object-fit: cover;" alt="Image">
+              <a href="#" onclick="redirect({{$el->id}})"><img src="data:image/jpeg;base64,{{ base64_encode($el->image) }}" class="img-fluid w-100 card-img-top" style="max-width: 100%; max-height: 375px; object-fit: cover;" alt="Image"></a>
             <div class="card-body">
               <h2>{{$el->name}}</h2>
               <div class="d-flex justify-content-between align-items-center mt-3">
